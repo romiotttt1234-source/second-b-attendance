@@ -1,290 +1,1126 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام تحضير طلاب الصف الثاني ب</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background-color: #f4f7f6;
-            margin: 0;
-            padding: 20px;
-            color: #333;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        h2 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 5px;
-        }
-        .info-box {
-            display: flex;
-            justify-content: space-between;
-            background: #eef2f3;
-            padding: 12px 18px;
-            border-radius: 8px;
-            margin: 20px 0;
-            font-weight: bold;
-            color: #34495e;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 25px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: center;
-        }
-        th {
-            background-color: #2c3e50;
-            color: white;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        .status-options {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-        .status-options label {
-            cursor: pointer;
-            font-weight: 500;
-        }
-        .btn-submit {
-            display: block;
-            width: 100%;
-            background-color: #27ae60;
-            color: white;
-            border: none;
-            padding: 14px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .btn-submit:hover {
-            background-color: #219653;
-        }
-        /* نافذة إدخال الرمز السري */
-        #pinModal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            width: 320px;
-        }
-        .modal-content input {
-            width: 100%;
-            padding: 10px;
-            font-size: 20px;
-            text-align: center;
-            letter-spacing: 5px;
-            margin: 15px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .modal-content button {
-            background: #2c3e50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-        }
-        .error-msg {
-            color: red;
-            font-size: 14px;
-            margin-top: 5px;
-            display: none;
-        }
-    </style>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>تحضير الصف الثاني ب</title>
+
+
+<style>
+
+:root {
+
+  --bg-color: #0F172A;
+  --panel-bg: #1E293B;
+  --text-color: #FFFFFF;
+  --accent-color: #60A5FA;
+  --input-bg: #334155;
+  --btn-hover: #1D4ED8;
+
+}
+
+
+[data-theme="blue"] {
+
+  --bg-color: #0B132B;
+  --panel-bg: #1C2541;
+  --text-color: #FFFFFF;
+  --accent-color: #4CC9F0;
+  --input-bg: #3A506B;
+  --btn-hover: #4361EE;
+
+}
+
+
+[data-theme="dark"] {
+
+  --bg-color: #0F172A;
+  --panel-bg: #1E293B;
+  --text-color: #FFFFFF;
+  --accent-color: #FACC15;
+  --input-bg: #334155;
+  --btn-hover: #16A34A;
+
+}
+
+
+[data-theme="light"] {
+
+  --bg-color: #F1F5F9;
+  --panel-bg: #FFFFFF;
+  --text-color: #0F172A;
+  --accent-color: #2563EB;
+  --input-bg: #E2E8F0;
+  --btn-hover: #15803D;
+
+}
+
+
+[data-theme="green"] {
+
+  --bg-color: #064E3B;
+  --panel-bg: #022C22;
+  --text-color: #FFFFFF;
+  --accent-color: #34D399;
+  --input-bg: #065F46;
+  --btn-hover: #047857;
+
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+
+body {
+
+  font-family: Cairo, Arial, sans-serif;
+
+  direction: rtl;
+
+  background: var(--bg-color);
+
+  color: var(--text-color);
+
+  padding: 15px;
+
+  margin: 0;
+
+  transition: 0.3s;
+
+}
+
+
+h2 {
+
+  text-align: center;
+
+  color: var(--accent-color);
+
+  margin-bottom: 20px;
+
+  font-weight: 800;
+
+}
+
+
+/* =========================
+   شاشة القفل
+========================= */
+
+#lockScreen {
+
+  position: fixed;
+
+  inset: 0;
+
+  background: var(--bg-color);
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  z-index: 999;
+
+}
+
+
+.lock-box {
+
+  background: var(--panel-bg);
+
+  padding: 30px;
+
+  border-radius: 15px;
+
+  text-align: center;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+
+  width: 90%;
+
+  max-width: 350px;
+
+}
+
+
+.lock-box input {
+
+  background: var(--input-bg);
+
+  color: var(--text-color);
+
+  border: none;
+
+  padding: 12px;
+
+  font-size: 18px;
+
+  border-radius: 8px;
+
+  width: 80%;
+
+  text-align: center;
+
+  margin-bottom: 15px;
+
+  outline: none;
+
+  letter-spacing: 5px;
+
+}
+
+
+.lock-box button {
+
+  background: #3B82F6;
+
+  color: #fff;
+
+  border: none;
+
+  padding: 12px 20px;
+
+  font-size: 16px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  font-weight: bold;
+
+  width: 100%;
+
+}
+
+
+.error-msg {
+
+  color: #EF4444;
+
+  margin-top: 10px;
+
+  display: none;
+
+}
+
+
+/* =========================
+   المحتوى
+========================= */
+
+#mainContent {
+
+  display: none;
+
+  max-width: 700px;
+
+  margin: 0 auto;
+
+}
+
+
+.control-panel {
+
+  background: var(--panel-bg);
+
+  padding: 18px;
+
+  border-radius: 12px;
+
+  margin-bottom: 20px;
+
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+
+}
+
+
+.control-group {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 10px;
+
+  font-size: 15px;
+
+  font-weight: bold;
+
+}
+
+
+.control-group input,
+.control-group select {
+
+  background: var(--input-bg);
+
+  color: var(--text-color);
+
+  padding: 8px 12px;
+
+  border-radius: 6px;
+
+  border: none;
+
+  font-size: 14px;
+
+  outline: none;
+
+  width: 60%;
+
+  text-align: center;
+
+}
+
+
+/* =========================
+   الطلاب
+========================= */
+
+.student-row {
+
+  background: var(--panel-bg);
+
+  padding: 12px 15px;
+
+  margin: 10px 0;
+
+  border-radius: 10px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+
+}
+
+
+@media(min-width: 500px) {
+
+  .student-row {
+
+    flex-direction: row;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+  }
+
+}
+
+
+.student-name {
+
+  font-size: 15px;
+
+  font-weight: bold;
+
+}
+
+
+/* =========================
+   الحالات
+========================= */
+
+.radio-group {
+
+  display: flex;
+
+  gap: 6px;
+
+  flex-wrap: wrap;
+
+}
+
+
+.radio-group label {
+
+  background: var(--input-bg);
+
+  padding: 6px 12px;
+
+  border-radius: 6px;
+
+  font-size: 13px;
+
+  cursor: pointer;
+
+  user-select: none;
+
+  font-weight: bold;
+
+}
+
+
+.radio-group input {
+
+  display: none;
+
+}
+
+
+.radio-group span {
+
+  display: inline-block;
+
+  padding: 2px 6px;
+
+  border-radius: 4px;
+
+}
+
+
+.radio-group input:checked + span.present {
+
+  background: #22C55E;
+
+  color: #fff;
+
+}
+
+
+.radio-group input:checked + span.absent {
+
+  background: #EF4444;
+
+  color: #fff;
+
+}
+
+
+.radio-group input:checked + span.late {
+
+  background: #EAB308;
+
+  color: #000;
+
+}
+
+
+.radio-group input:checked + span.excused {
+
+  background: #0EA5E9;
+
+  color: #fff;
+
+}
+
+
+/* =========================
+   الحفظ
+========================= */
+
+.save-btn {
+
+  background: #3B82F6;
+
+  color: #fff;
+
+  border: none;
+
+  padding: 15px;
+
+  width: 100%;
+
+  font-size: 18px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-weight: bold;
+
+  margin-top: 20px;
+
+}
+
+
+.save-btn:hover {
+
+  background: var(--btn-hover);
+
+}
+
+
+.save-btn:disabled {
+
+  opacity: 0.6;
+
+  cursor: not-allowed;
+
+}
+
+
+.loading {
+
+  text-align: center;
+
+  color: #38BDF8;
+
+  display: none;
+
+  margin-top: 10px;
+
+  font-weight: bold;
+
+}
+
+</style>
+
 </head>
-<body>
 
-    <!-- نافذة طلب رمز الدخول (PIN: 1234) -->
-    <div id="pinModal">
-        <div class="modal-content">
-            <h3>أدخل رمز الحماية</h3>
-            <p style="font-size: 13px; color: #666;">الرجاء إدخال الرمز المكون من 4 أرقام للمتابعة</p>
-            <input type="password" id="pinInput" maxlength="4" placeholder="••••">
-            <button onclick="checkPin()">دخول</button>
-            <div id="errorMsg" class="error-msg">الرمز غير صحيح، حاول مرة أخرى.</div>
-        </div>
+
+<body data-theme="blue">
+
+
+<!-- =========================
+     شاشة القفل
+========================= -->
+
+<div id="lockScreen">
+
+  <div class="lock-box">
+
+    <h3>🔒 لوحة التحضير محمية</h3>
+
+    <p style="color:#94A3B8">
+
+      الرجاء إدخال الرقم السري
+
+    </p>
+
+    <input
+      type="password"
+      id="pinInput"
+      placeholder="****"
+      maxlength="4"
+    >
+
+    <br>
+
+    <button onclick="checkPin()">
+      دخول
+    </button>
+
+    <div id="errorMsg" class="error-msg">
+      الرقم السري غير صحيح!
     </div>
 
-    <div class="container" id="mainContent" style="display:none;">
-        <h2>سجل حضور طلاب الصف الثاني ب</h2>
-        
-        <div class="info-box">
-            <span id="currentDate">التاريخ: --</span>
-            <span id="currentDay">اليوم: --</span>
-        </div>
+  </div>
 
-        <form id="attendanceForm">
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 10%;">م</th>
-                        <th style="width: 50%;">اسم الطالب</th>
-                        <th style="width: 40%;">حالة الحضور</th>
-                    </tr>
-                </thead>
-                <tbody id="studentsTableBody">
-                    <!-- يتم تعبئة الطلاب تلقائياً عبر الكود -->
-                </tbody>
-            </table>
-            
-            <button type="button" class="btn-submit" onclick="submitAttendance()">حفظ وإرسال التحضير</button>
-        </form>
+</div>
+
+
+<!-- =========================
+     الصفحة
+========================= -->
+
+<div id="mainContent">
+
+  <h2>📋 تحضير الصف الثاني ب</h2>
+
+
+  <div class="control-panel">
+
+
+    <div class="control-group">
+
+      <span>🎨 اختر الثيم:</span>
+
+      <select
+        id="themeSelect"
+        onchange="changeTheme(this.value)"
+      >
+
+        <option value="blue">
+          🔵 أزرق ملكي
+        </option>
+
+        <option value="dark">
+          🌙 داكن فاخر
+        </option>
+
+        <option value="light">
+          ☀️ فاتح نظيف
+        </option>
+
+        <option value="green">
+          🌲 أخضر هادئ
+        </option>
+
+      </select>
+
     </div>
 
-    <script>
-        // الرمز السري المطلوب
-        const CORRECT_PIN = "1234";
 
-        function checkPin() {
-            const enteredPin = document.getElementById("pinInput").value;
-            const errorMsg = document.getElementById("errorMsg");
+    <div class="control-group">
 
-            if (enteredPin === CORRECT_PIN) {
-                document.getElementById("pinModal").style.display = "none";
-                document.getElementById("mainContent").style.display = "block";
-            } else {
-                errorMsg.style.display = "block";
-                document.getElementById("pinInput").value = "";
-            }
-        }
+      <span>📅 التاريخ:</span>
 
-        // قائمة الطلاب
-        const students = [
-            "البراء ماجد حمدان السلمي", "السنوسي حسن عمر هارون", "الوليد ماجد رشيد السلمى",
-            "امير يوسف احجل", "بهاء مخضور بن مطلق الصاطي", "تركي خالد عبدالله السلمي",
-            "تميم ريان حاتم", "جلال علي صباح الخير", "حازم نواف وصل السلمي",
-            "رائد ماجد محمد الدريويشي", "زيد فهد بن عالي السلمي", "عبدالرحمن عريمط المحلدي",
-            "عبدالله مجدي حميد المحلدي", "عز عدنان بن عبدالله الصاطي", "عمرو ابراهيم عبدالله ابراهيم",
-            "فيصل سامي بتاء السلمي", "فيصل نواف مفلح المنقاشي", "محمد طيب الظبيبي",
-            "مهدي فريد احمد", "يزن عبدالله محمد الشيخ", "يوسف علي صباح الخير",
-            "يوسف ماجد علاوي السلمي"
-        ];
+      <input
+        type="date"
+        id="attendanceDate"
+      >
 
-        // رابط سكربت قوقل الجديد المحدث
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyxze7mIZHhOHQmthC_LDRg0YTiFOz30E_mUeN5OW_q-ZL5bbIPYhA_eMz5WnF7QkcKoA/exec";
+    </div>
 
-        // تعبئة التاريخ واليوم وجدول الطلاب تلقائياً
-        window.onload = function() {
-            const now = new Date();
-            
-            // ضبط صيغة التاريخ (YYYY-MM-DD)
-            const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            const dateStr = `${year}-${month}-${day}`;
 
-            // جلب اسم اليوم بالعربي
-            const daysNames = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
-            const dayNameStr = daysNames[now.getDay()];
+    <div class="control-group">
 
-            document.getElementById("currentDate").innerText = "التاريخ: " + dateStr;
-            document.getElementById("currentDay").innerText = "اليوم: " + dayNameStr;
+      <span>📆 اليوم الدراسي:</span>
 
-            // بناء الجدول
-            const tbody = document.getElementById("studentsTableBody");
-            students.forEach((student, index) => {
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td style="text-align: right; font-weight: 500;">${student}</td>
-                    <td>
-                        <div class="status-options">
-                            <label style="color: #27ae60;"><input type="radio" name="student_${index}" value="حاضر" checked> حاضر</label>
-                            <label style="color: #e74c3c;"><input type="radio" name="student_${index}" value="غائب"> غائب</label>
-                            <label style="color: #f39c12;"><input type="radio" name="student_${index}" value="متأخر"> متأخر</label>
-                        </div>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        };
+      <select id="attendanceDay">
 
-        // إرسال البيانات إلى قوقل شيت
-        function submitAttendance() {
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            const dateStr = `${year}-${month}-${day}`;
-            
-            const daysNames = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
-            const dayNameStr = daysNames[now.getDay()];
+        <option value="الأحد">الأحد</option>
 
-            let attendanceData = [];
+        <option value="الإثنين">الإثنين</option>
 
-            students.forEach((student, index) => {
-                const radios = document.getElementsByName(`student_${index}`);
-                let status = "حاضر";
-                for (const radio of radios) {
-                    if (radio.checked) {
-                        status = radio.value;
-                        break;
-                    }
-                }
-                attendanceData.push({ name: student, status: status });
-            });
+        <option value="الثلاثاء">الثلاثاء</option>
 
-            const payload = {
-                date: dateStr,
-                day: dayNameStr,
-                students: attendanceData
-            };
+        <option value="الأربعاء">الأربعاء</option>
 
-            const btn = document.querySelector(".btn-submit");
-            btn.innerText = "جاري الحفظ والإرسال...";
-            btn.disabled = true;
+        <option value="الخميس">الخميس</option>
 
-            fetch(SCRIPT_URL, {
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            })
-            .then(() => {
-                alert("تم تسجيل وحفظ التحضير بنجاح في قوقل شيت!");
-                btn.innerText = "حفظ وإرسال التحضير";
-                btn.disabled = false;
-            })
-            .catch(error => {
-                console.error("Error!", error);
-                alert("حدث خطأ أثناء الإرسال، تأكد من الاتصال بالإنترنت.");
-                btn.innerText = "حفظ وإرسال التحضير";
-                btn.disabled = false;
-            });
-        }
-    </script>
+      </select>
+
+    </div>
+
+
+    <div class="control-group">
+
+      <span>📚 الفصل الدراسي:</span>
+
+      <select id="semester">
+
+        <option value="الفصل الدراسي الأول">
+          الفصل الدراسي الأول
+        </option>
+
+        <option value="الفصل الدراسي الثاني">
+          الفصل الدراسي الثاني
+        </option>
+
+      </select>
+
+    </div>
+
+  </div>
+
+
+  <div id="formContainer"></div>
+
+
+  <button
+    class="save-btn"
+    id="saveButton"
+    onclick="sendToGoogleSheet()"
+  >
+
+    💾 حفظ التحضير
+
+  </button>
+
+
+  <div
+    id="loadingText"
+    class="loading"
+  >
+
+    ⏳ جاري الحفظ...
+
+  </div>
+
+</div>
+
+
+<script>
+
+
+// =====================================================
+// رابط Google Apps Script — الجديد
+// =====================================================
+
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbyd0RAUlYZJNfTpDPXkIoGeeocEvL-XOzQidkzzTkitvszw-PUfPhD00tnaLLerfCXnkg/exec";
+
+
+// =====================================================
+// الثيم
+// =====================================================
+
+function changeTheme(themeName) {
+
+  document.body.setAttribute(
+    "data-theme",
+    themeName
+  );
+
+  localStorage.setItem(
+    "school_theme",
+    themeName
+  );
+
+}
+
+
+const savedTheme =
+  localStorage.getItem("school_theme");
+
+
+if (savedTheme) {
+
+  document.body.setAttribute(
+    "data-theme",
+    savedTheme
+  );
+
+}
+
+
+// =====================================================
+// التاريخ
+// =====================================================
+
+const today = new Date();
+
+document.getElementById(
+  "attendanceDate"
+).valueAsDate = today;
+
+
+// =====================================================
+// اليوم
+// =====================================================
+
+const daysMap = {
+
+  Sunday: "الأحد",
+
+  Monday: "الإثنين",
+
+  Tuesday: "الثلاثاء",
+
+  Wednesday: "الأربعاء",
+
+  Thursday: "الخميس"
+
+};
+
+
+const currentDayName =
+
+  new Intl.DateTimeFormat(
+    "en-US",
+    { weekday: "long" }
+  ).format(today);
+
+
+if (daysMap[currentDayName]) {
+
+  document.getElementById(
+    "attendanceDay"
+  ).value =
+    daysMap[currentDayName];
+
+}
+
+
+// =====================================================
+// الرقم السري
+// =====================================================
+
+function checkPin() {
+
+  const pin =
+    document.getElementById(
+      "pinInput"
+    ).value;
+
+
+  if (pin === "1234") {
+
+    document.getElementById(
+      "lockScreen"
+    ).style.display = "none";
+
+
+    document.getElementById(
+      "mainContent"
+    ).style.display = "block";
+
+
+    document.getElementById(
+      "themeSelect"
+    ).value =
+      localStorage.getItem(
+        "school_theme"
+      ) || "blue";
+
+
+  }
+
+  else {
+
+    document.getElementById(
+      "errorMsg"
+    ).style.display = "block";
+
+
+    document.getElementById(
+      "pinInput"
+    ).value = "";
+
+  }
+
+}
+
+
+document.getElementById(
+  "pinInput"
+).addEventListener(
+  "keypress",
+  function(event) {
+
+    if (event.key === "Enter") {
+
+      checkPin();
+
+    }
+
+  }
+);
+
+
+// =====================================================
+// أسماء الطلاب
+// =====================================================
+
+const studentsList = [
+
+  "البراء ماجد حمدان السلمي",
+
+  "السنوسي حسن عمر هارون",
+
+  "الوليد ماجد رشيد السلمى",
+
+  "امير يوسف احجل",
+
+  "بهاء مخضور بن مطلق الصاطي",
+
+  "تركي خالد عبدالله السلمي",
+
+  "تميم ريان حاتم",
+
+  "جلال علي صباح الخير",
+
+  "حازم نواف وصل السلمي",
+
+  "رائد ماجد محمد الدريويشي",
+
+  "زيد فهد بن عالي السلمي",
+
+  "عبدالرحمن عريمط المحلدي",
+
+  "عبدالله مجدي حميد المحلدي",
+
+  "عز عدنان بن عبدالله الصاطي",
+
+  "عمرو ابراهيم عبدالله ابراهيم",
+
+  "فيصل سامي بتاء السلمي",
+
+  "فيصل نواف مفلح المنقاشي",
+
+  "محمد طيب الظبيبي",
+
+  "مهدي فريد احمد",
+
+  "يزن عبدالله محمد الشيخ",
+
+  "يوسف علي صباح الخير",
+
+  "يوسف ماجد علاوي السلمي"
+
+];
+
+
+// =====================================================
+// إنشاء الطلاب
+// =====================================================
+
+const container =
+  document.getElementById(
+    "formContainer"
+  );
+
+
+studentsList.forEach(
+  function(name, index) {
+
+    const row =
+      document.createElement("div");
+
+
+    row.className =
+      "student-row";
+
+
+    row.innerHTML = `
+
+      <span class="student-name">
+        ${index + 1}. ${name}
+      </span>
+
+      <div class="radio-group">
+
+        <label>
+
+          <input
+            type="radio"
+            name="status_${index}"
+            value="حاضر"
+            checked
+          >
+
+          <span class="present">
+            حاضر
+          </span>
+
+        </label>
+
+
+        <label>
+
+          <input
+            type="radio"
+            name="status_${index}"
+            value="غائب"
+          >
+
+          <span class="absent">
+            غائب
+          </span>
+
+        </label>
+
+
+        <label>
+
+          <input
+            type="radio"
+            name="status_${index}"
+            value="متأخر"
+          >
+
+          <span class="late">
+            متأخر
+          </span>
+
+        </label>
+
+
+        <label>
+
+          <input
+            type="radio"
+            name="status_${index}"
+            value="غياب بعذر"
+          >
+
+          <span class="excused">
+            بعذر
+          </span>
+
+        </label>
+
+      </div>
+
+    `;
+
+
+    container.appendChild(row);
+
+  }
+);
+
+
+// =====================================================
+// إرسال إلى Google Sheets
+// =====================================================
+
+async function sendToGoogleSheet() {
+
+  const dateVal =
+    document.getElementById(
+      "attendanceDate"
+    ).value;
+
+
+  if (!dateVal) {
+
+    alert(
+      "⚠️ الرجاء تحديد التاريخ أولاً"
+    );
+
+    return;
+
+  }
+
+
+  // ===================================================
+  // تجهيز البيانات
+  // ===================================================
+
+  const dailyRecord = {
+
+    date: dateVal,
+
+    day:
+      document.getElementById(
+        "attendanceDay"
+      ).value,
+
+    semester:
+      document.getElementById(
+        "semester"
+      ).value,
+
+    students: {}
+
+  };
+
+
+  // ===================================================
+  // جمع حالات الطلاب
+  // ===================================================
+
+  studentsList.forEach(
+    function(name, index) {
+
+      const selectedRadio =
+        document.querySelector(
+          `input[name="status_${index}"]:checked`
+        );
+
+
+      dailyRecord.students[name] =
+
+        selectedRadio
+          ? selectedRadio.value
+          : "حاضر";
+
+    }
+  );
+
+
+  // ===================================================
+  // حالة الزر
+  // ===================================================
+
+  const saveButton =
+    document.getElementById(
+      "saveButton"
+    );
+
+
+  const loadingText =
+    document.getElementById(
+      "loadingText"
+    );
+
+
+  saveButton.disabled = true;
+
+  loadingText.style.display =
+    "block";
+
+
+  // ===================================================
+  // الإرسال
+  // ===================================================
+
+  try {
+
+    await fetch(
+
+      SCRIPT_URL,
+
+      {
+
+        method: "POST",
+
+        mode: "no-cors",
+
+        body:
+          JSON.stringify(
+            dailyRecord
+          )
+
+      }
+
+    );
+
+
+    loadingText.style.display =
+      "none";
+
+    saveButton.disabled =
+      false;
+
+
+    alert(
+      "✅ تم حفظ التحضير بنجاح"
+    );
+
+
+  }
+
+
+  catch (error) {
+
+    loadingText.style.display =
+      "none";
+
+    saveButton.disabled =
+      false;
+
+
+    alert(
+      "❌ حدث خطأ أثناء الحفظ\n\n" +
+      error.message
+    );
+
+  }
+
+}
+
+</script>
+
 </body>
+
 </html>
